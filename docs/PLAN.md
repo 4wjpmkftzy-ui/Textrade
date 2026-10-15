@@ -67,6 +67,13 @@
 - [ ] 段階8:セキュリティ点検
 - [ ] 段階9:公開
 
+## 次回の再開ポイント(2026-10-15 夜に中断)
+- 済:Supabase の DB 適用、Auth 設定(Confirm email / Secure email change / パスワード8文字 / OTP 3600秒 / Site URL・Redirect URL = http://localhost:3000)
+- 済:ドメイン `textrade.app` 取得、Resend アカウント作成(GitHub ログイン)、Resend にドメイン追加(Tokyo)
+- 途中:Resend の DNS「自動設定」(Cloudflare 連携)を押したところで Resend 側のエラー画面。再読み込みして、ドメインが Verified になっているか確認する
+- 次:Resend の API キーで Supabase の SMTP を設定(Authentication → Emails → Set up SMTP)→ メール文面を日本語に(`docs/SUPABASE_SETUP.md`)
+- 次:クラウド作業環境の環境変数(NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)に本物の値を入れ、新しいセッションで動作確認
+
 ## ドメイン
 - `textrade.app`(2026-10-15 取得、Cloudflare Registrar。更新は年14.20ドル)
 - 所有者メールの確認(ICANN、14日以内)と自動更新の確認を忘れないこと
