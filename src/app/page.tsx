@@ -53,7 +53,10 @@ export default function Home() {
           <h2 className="font-semibold">ご利用にあたって</h2>
           <p className="mt-2 text-muted">
             {SITE_NAME}
-            は出会いの場を提供するだけのサービスです。代金の支払いや受け渡しの方法・場所は、当事者同士で話し合って決めてください。
+            は出会いの場を提供するだけのサービスです。代金はPayPayの送金などで当事者同士で直接やり取りし、受け渡しの方法・場所も当事者同士で話し合って決めてください。
+          </p>
+          <p className="mt-2 text-muted">
+            トラブルを防ぐため、代金は教科書を受け取るときに支払うことをおすすめします。
           </p>
         </div>
       </section>
