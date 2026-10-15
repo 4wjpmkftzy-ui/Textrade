@@ -37,40 +37,54 @@ select jobname, schedule from cron.job;
 - **Site URL**:サイトのURL(例:`https://textrade.vercel.app`。手元で試すときは `http://localhost:3000`)
 - **Redirect URLs**:上と同じURLを追加
 
+### Emails → SMTP Settings(先に設定する)
+Supabase 標準のメール送信は、チームのメンバー宛てにしか届かず、文面も編集できません。
+そのため、先に Resend をメール送信に使う設定をします。
+
+1. Resend で API キーを作る(API Keys → Create API Key、Permission: Sending access、Domain: `textrade.app`)
+2. Supabase の Authentication → Emails → SMTP Settings に入力する
+
+| 欄 | 値 |
+|---|---|
+| Sender email | `no-reply@textrade.app` |
+| Sender name | `Textrade` |
+| Host | `smtp.resend.com` |
+| Port | `465` |
+| Username | `resend` |
+| Password | Resend の API キー(`re_...`。チャットや画像に出さない) |
+
 ### Emails → Templates
 確認メールのリンク先を、このサイトの確認ページ(`/auth/confirm`)に変更します。
-各テンプレートの本文を次のように書き換えてください(件名は自由に日本語へ)。
+本文は **Source** に切り替えてから貼り付けます(ブラウザの自動翻訳はオフにする)。
 
-**Confirm signup**(会員登録の確認)
+**Confirm sign up**(件名:`【Textrade】メールアドレスの確認`)
 ```html
 <p>Textrade へのご登録ありがとうございます。</p>
-<p>下のリンクを開き、表示された画面で「確認を完了する」を押してください。</p>
+<p>下のリンクを開き、表示された画面で「確認を完了する」を押してください。リンクの有効期限は1時間です。</p>
 <p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email">メールアドレスを確認する</a></p>
 <p>心当たりがない場合は、このメールを破棄してください。</p>
 ```
 
-**Change email address**(ログイン用メールの変更)
+**Change email address**(件名:`【Textrade】メールアドレス変更の確認`)
 ```html
-<p>ログイン用メールアドレスの変更を受け付けました。</p>
+<p>Textrade のログイン用メールアドレスの変更を受け付けました。</p>
+<p>下のリンクを開き、表示された画面で「確認を完了する」を押してください。リンクの有効期限は1時間です。</p>
 <p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email_change">変更を確認する</a></p>
 <p>心当たりがない場合は、このメールを破棄してください。</p>
 ```
 
-**Reset password**(パスワードの再設定)
+**Reset password**(件名:`【Textrade】パスワードの再設定`)
 ```html
-<p>パスワード再設定のご依頼を受け付けました。</p>
-<p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery">新しいパスワードを設定する</a></p>
-<p>心当たりがない場合は、このメールを破棄してください。</p>
+<p>Textrade のパスワード再設定のご依頼を受け付けました。</p>
+<p>下のリンクを開き、表示された画面で「確認を完了する」を押すと、新しいパスワードを設定できます。リンクの有効期限は1時間です。</p>
+<p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery">パスワードを再設定する</a></p>
+<p>心当たりがない場合は、このメールを破棄してください。パスワードは変更されません。</p>
 ```
 
 > **なぜリンクを開いただけで確認しないの?**
 > 大学のメールシステムには、届いたリンクを自動で開いて安全確認するものがあります。
 > そのときに1回限りの確認コードが使われてしまうと、本人がリンクを開いても失敗します。
 > そこで、確認ページでボタンを押したときに確認する仕組みにしています。
-
-### メール送信(SMTP)
-Supabase 標準のメール送信は、**1時間に数通まで・運営チームのアドレス宛てのみ**などの制限があり、
-一般公開には使えません。公開前に Resend などの送信サービスを設定します(独自ドメイン取得後)。
 
 ## 3. サイト側に接続情報を設定する
 

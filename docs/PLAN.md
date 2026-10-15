@@ -67,12 +67,12 @@
 - [ ] 段階8:セキュリティ点検
 - [ ] 段階9:公開
 
-## 次回の再開ポイント(2026-10-15 夜に中断)
+## 次回の再開ポイント
 - 済:Supabase の DB 適用、Auth 設定(Confirm email / Secure email change / パスワード8文字 / OTP 3600秒 / Site URL・Redirect URL = http://localhost:3000)
-- 済:ドメイン `textrade.app` 取得、Resend アカウント作成(GitHub ログイン)、Resend にドメイン追加(Tokyo)
-- 途中:Resend の DNS「自動設定」(Cloudflare 連携)を押したところで Resend 側のエラー画面。再読み込みして、ドメインが Verified になっているか確認する
-- 次:Resend の API キーで Supabase の SMTP を設定(Authentication → Emails → Set up SMTP)→ メール文面を日本語に(`docs/SUPABASE_SETUP.md`)
-- 次:クラウド作業環境の環境変数(NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)に本物の値を入れ、新しいセッションで動作確認
+- 済:ドメイン `textrade.app` 取得、Resend にドメイン追加(Tokyo、Verified)
+- 済:Supabase の SMTP を Resend に設定(送信元 no-reply@textrade.app)、メール文面3種を日本語化
+- 次:クラウド作業環境の環境変数(NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)に本物の値を入れ、新しいセッションで登録〜ログインの動作確認
+- 次:公開時に Site URL / Redirect URLs を本番 URL に変更
 
 ## ドメイン
 - `textrade.app`(2026-10-15 取得、Cloudflare Registrar。更新は年14.20ドル)
@@ -80,8 +80,6 @@
 
 ## 公開前に必ずやること(段階3で判明)
 - Supabase は独自SMTPを設定しないとメール文面を編集できない(2026-10 時点)
-- Supabase 標準のメール送信は一般公開に使えないため、Resend などの SMTP を設定する
-- メールテンプレートを `docs/SUPABASE_SETUP.md` のとおりに変更する
 
 ## テストの実行方法
 ```bash
