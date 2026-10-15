@@ -35,7 +35,7 @@
 | デザイン | Tailwind CSS v4 |
 | 会員管理・DB・画像保存 | Supabase(東京リージョン) |
 | 公開 | Vercel(Hobby。商用化したら Pro か Cloudflare へ) |
-| メール送信 | Resend(独自ドメイン取得後) |
+| メール送信 | Resend(ドメイン `textrade.app`) |
 
 - Next.js 16 は学習データと仕様が異なる部分がある。`node_modules/next/dist/docs/` を確認してから書く(AGENTS.md 参照)
 - 写真はサーバー側で WebP に再変換し、位置情報(EXIF)を削除・圧縮してから保存する
@@ -67,7 +67,12 @@
 - [ ] 段階8:セキュリティ点検
 - [ ] 段階9:公開
 
+## ドメイン
+- `textrade.app`(2026-10-15 取得、Cloudflare Registrar。更新は年14.20ドル)
+- 所有者メールの確認(ICANN、14日以内)と自動更新の確認を忘れないこと
+
 ## 公開前に必ずやること(段階3で判明)
+- Supabase は独自SMTPを設定しないとメール文面を編集できない(2026-10 時点)
 - Supabase 標準のメール送信は一般公開に使えないため、Resend などの SMTP を設定する
 - メールテンプレートを `docs/SUPABASE_SETUP.md` のとおりに変更する
 
