@@ -14,14 +14,16 @@ Supabase の管理画面(https://supabase.com/dashboard)で行う作業をまと
 
 > 同じファイルを2回実行するとエラーになります(「すでに存在します」という意味なので、データは壊れません)。
 
-### pg_cron(定期実行)を有効にする
+### 定期実行(pg_cron)の確認
 2つ目のファイルは、未確認アカウントを1時間ごとに削除する予約をします。
-先に **Database → Extensions** で `pg_cron` を有効にしておくと、予約まで自動で行われます。
-後から有効にした場合は、SQL Editor で次を実行してください。
+pg_cron(定期実行の仕組み)もこのファイルが自動で有効にするので、事前の操作は不要です。
+実行後、SQL Editor で次を実行して確認します。
 
 ```sql
-select cron.schedule('delete-unverified-users', '23 * * * *', 'select public.delete_unverified_users()');
+select jobname, schedule from cron.job;
 ```
+
+`delete-unverified-users` と `23 * * * *` が表示されれば成功です。
 
 ## 2. 会員登録・ログインの設定(Authentication)
 
