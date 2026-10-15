@@ -52,9 +52,9 @@
 - [x] 段階0:プロジェクトの土台
 - [x] 段階1:共通レイアウト、規約ページの枠
 - [x] 段階2:データベース設計とアクセス制限(`supabase/migrations/`)。ローカルのテストは合格
-- [ ] Supabase 本番プロジェクトへの適用(手順は `docs/SUPABASE_SETUP.md`)
-  - クラウド作業環境の環境変数が説明文のままで、supabase.com への通信も未許可(2026-10-15 時点)
-  - 管理画面の SQL Editor から手作業で適用することもできる
+- [x] Supabase 本番プロジェクトへのデータベース適用(2026-10-15、SQL Editor から手作業で実施。pg_cron の予約も確認済み)
+- [ ] Supabase の会員登録まわりの設定(`docs/SUPABASE_SETUP.md` の 2.)と接続キーの設定(同 3.)
+  - クラウド作業環境:supabase.co / *.supabase.co / *.supabase.com への通信は許可済み。環境変数はまだ説明文のまま
 - [x] 段階3:会員登録・ログイン・大学メール認証・個人メール追加(コード完成。本物の Supabase での動作確認は未実施)
   - 画面:`/signup` `/login` `/auth/confirm` `/password/forgot` `/account` `/account/password`
   - 確認メールのリンクは「開く→ボタンを押す」で確認(大学メールのリンク自動チェック対策)
