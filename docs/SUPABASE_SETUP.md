@@ -31,6 +31,7 @@ select jobname, schedule from cron.job;
 - **Confirm email**:オン(大学メールの確認に必須)
 - **Secure email change**:オン(メール変更時に新旧両方で確認)
 - **Minimum password length**:8
+- **Email OTP Expiration**:3600(確認リンクの有効期限=1時間。Supabase の推奨どおり1時間以内にする)
 
 ### URL Configuration
 - **Site URL**:サイトのURL(例:`https://textrade.vercel.app`。手元で試すときは `http://localhost:3000`)
