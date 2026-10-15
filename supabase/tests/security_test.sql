@@ -228,4 +228,24 @@ select t.throws($$insert into public.messages (conversation_id, body)
                 '利用停止中はメッセージを送れない');
 reset role;
 
+-- ---------- 未確認アカウントの自動削除 ----------
+insert into auth.users (id, email, email_confirmed_at, created_at, raw_user_meta_data) values
+  ('00000000-0000-0000-0000-00000000000f', 'frank@ed.ritsumei.ac.jp', null, now() - interval '2 days',
+   '{"nickname":"ふらんく"}');
+update auth.users set created_at = now() - interval '2 days'
+  where id = '00000000-0000-0000-0000-00000000000a';
+
+set role authenticated;
+select t.throws('select public.delete_unverified_users()', '利用者は削除処理を実行できない');
+reset role;
+
+select t.ok(public.delete_unverified_users() = 1, '24時間以上たった未確認アカウントだけ削除される');
+select t.ok(not exists (select 1 from public.user_private
+                        where user_id = '00000000-0000-0000-0000-00000000000f'),
+            '削除されたアカウントの非公開情報も消える');
+select t.ok(exists (select 1 from auth.users where id = '00000000-0000-0000-0000-00000000000d'),
+            '登録したばかりの未確認アカウントは残る');
+select t.ok(exists (select 1 from auth.users where id = '00000000-0000-0000-0000-00000000000a'),
+            '確認済みのアカウントは古くても残る');
+
 \echo '===== すべてのテストに合格しました ====='

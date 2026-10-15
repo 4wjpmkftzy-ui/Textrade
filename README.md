@@ -9,13 +9,14 @@
 |---|---|
 | 画面・サーバー処理 | Next.js(TypeScript) |
 | デザイン | Tailwind CSS |
-| 会員管理・データベース・画像保存 | Supabase(予定) |
+| 会員管理・データベース・画像保存 | Supabase(設定手順:`docs/SUPABASE_SETUP.md`) |
 | 公開 | Vercel(予定) |
 
 ## 手元で動かす方法
 
 ```bash
 npm install     # 必要な部品をダウンロード(最初の1回だけ)
+# .env.local に Supabase の接続情報を書いておく(docs/SUPABASE_SETUP.md の 3.)
 npm run dev     # 開発用サーバーを起動
 ```
 
